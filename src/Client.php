@@ -204,8 +204,8 @@ class Client implements \CharlotteDunois\Events\EventEmitterInterface {
      * )
      * </pre>
      *
-     * @param \React\EventLoop\LoopInterface   $loop     You can pass an event loop to the class, or it will automatically create one (you still need to make it run yourself).
-     * @param array                            $options  Any client options.
+     * @param \React\EventLoop\LoopInterface|null  $loop     You can pass an event loop to the class, or it will automatically create one (you still need to make it run yourself).
+     * @param array                                $options  Any client options.
      * @throws \Exception
      *
      * @see \CharlotteDunois\Yasmin\ClientEvents
