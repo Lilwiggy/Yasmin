@@ -204,13 +204,13 @@ class Client implements \CharlotteDunois\Events\EventEmitterInterface {
      * )
      * </pre>
      *
-     * @param array                            $options  Any client options.
      * @param \React\EventLoop\LoopInterface   $loop     You can pass an event loop to the class, or it will automatically create one (you still need to make it run yourself).
+     * @param array                            $options  Any client options.
      * @throws \Exception
      *
      * @see \CharlotteDunois\Yasmin\ClientEvents
      */
-    function __construct(array $options = array(), ?\React\EventLoop\LoopInterface $loop = null) {
+    function __construct(?\React\EventLoop\LoopInterface $loop = null, array $options = array()) {
         if(\PHP_SAPI !== 'cli') {
             throw new \Exception('Yasmin can only be used in the CLI SAPI. Please use PHP CLI to run Yasmin.');
         }
