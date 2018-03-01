@@ -19,13 +19,13 @@ class WebhookClient extends \CharlotteDunois\Yasmin\Models\Webhook {
      * Constructor.
      * @param string                               $id       The webhook ID.
      * @param string                               $token    The webhook token.
-     * @param array                                $options  Any Client Options.
      * @param \React\EventLoop\LoopInterface|null  $loop     The ReactPHP Event Loop.
+     * @param array                                $options  Any Client Options.
      */
-    function __construct(string $id, string $token, array $options = array(), ?\React\EventLoop\LoopInterface $loop = null) {
+    function __construct(string $id, string $token, ?\React\EventLoop\LoopInterface $loop = null, array $options = array()) {
         $options['internal.ws.disable'] = true;
         
-        $client = new \CharlotteDunois\Yasmin\Client($options, $loop);
+        $client = new \CharlotteDunois\Yasmin\Client($loop, $options);
         parent::__construct($client, array(
             'id' => $id,
             'token' => $token
