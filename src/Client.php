@@ -183,7 +183,7 @@ class Client implements \CharlotteDunois\Events\EventEmitterInterface {
     protected $utils = array();
     
     /**
-     * What do you expect this to do? It makes a new Client instance. Available client options are as following (all are optional):
+     * What do you expect this to do? It makes a new Client instance. Available client options are as following (all are optional, except for token):
      *
      * <pre>
      * array(
@@ -194,6 +194,7 @@ class Client implements \CharlotteDunois\Events\EventEmitterInterface {
      *   'messageSweepInterval' => int, (interval when the message cache gets invalidated (see messageCacheLifetime), defaults to messageCacheLifetime)
      *   'shardID' => int, (shard ID, 0-indexed, always needs to be smaller than shardCount, important for sharding)
      *   'shardCount' => int, (shard count, important for sharding)
+     *   'token' => string, (the bot token, required)
      *   'userSweepInterval' => int, (interval when the user cache gets invalidated (users sharing no mutual guilds get removed), defaults to 600)
      *   'http.restTimeOffset' => int|float, (specifies how many seconds should be waited after one REST request before the next REST request should be done)
      *   'ws.compression' => string, (Enables a specific one, defaults to zlib-stream, which is currently the only available compression)
@@ -217,6 +218,8 @@ class Client implements \CharlotteDunois\Events\EventEmitterInterface {
         
         if(!empty($options)) {
             $this->validateClientOptions($options);
+            $this->token = \trim($options['token']);
+            unset($options['token']);
             $this->options = \array_merge($this->options, $options);
         }
         
@@ -339,20 +342,11 @@ class Client implements \CharlotteDunois\Events\EventEmitterInterface {
     
     /**
      * Login into Discord. Opens a WebSocket Gateway connection. Resolves once a WebSocket connection has been successfully established (does not mean the client is ready).
-     * @param string $token  Your token.
      * @param bool   $force  Forces the client to get the gateway address from Discord.
      * @return \React\Promise\Promise
      * @throws \RuntimeException
      */
-    function login(string $token, bool $force = false) {
-        $token = \trim($token);
-        
-        if(empty($token)) {
-            throw new \RuntimeException('Token can not be empty');
-        }
-        
-        $this->token = $token;
-        
+    function login(bool $force = false) {
         return (new \React\Promise\Promise(function (callable $resolve, callable $reject) use ($force) {
             if($this->ws === null) {
                 return $resolve();
@@ -798,6 +792,7 @@ class Client implements \CharlotteDunois\Events\EventEmitterInterface {
             'messageSweepInterval' => 'integer|min:0',
             'shardID' => 'integer|min:0',
             'shardCount' => 'integer|min:1',
+            'token' => 'required|string|nowhitespace',
             'userSweepInterval' => 'integer|min:0',
             'http.restTimeOffset' => 'integer',
             'ws.compression' => 'string',
