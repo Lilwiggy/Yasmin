@@ -38,26 +38,15 @@ class Snowflake {
      * @param string|int  $snowflake
      */
     function __construct($snowflake) {
-        if(\PHP_INT_SIZE === 4) {
-            $this->binary = \str_pad(\base_convert($snowflake, 10, 2), 64, 0, \STR_PAD_LEFT);
-            
-            $time = \base_convert(\substr($this->binary, 0, 42), 2, 10);
-            
-            $this->timestamp = (float) ((((int) \substr($time, 0, -3)) + self::EPOCH).'.'.\substr($time, -3));
-            $this->workerID = (int) \base_convert(\substr($this->binary, 42, 5), 2, 10);
-            $this->processID = (int) \base_convert(\substr($this->binary, 47, 5), 2, 10);
-            $this->increment = (int) \base_convert(\substr($this->binary, 52, 12), 2, 10);
-        } else {
-            $snowflake = (int) $snowflake;
-            $this->binary = \str_pad(\decbin($snowflake), 64, 0, \STR_PAD_LEFT);
-            
-            $time = (string) ($snowflake >> 22);
-            
-            $this->timestamp = (float) ((((int) \substr($time, 0, -3)) + self::EPOCH).'.'.\substr($time, -3));
-            $this->workerID = ($snowflake & 0x3E0000) >> 17;
-            $this->processID = ($snowflake & 0x1F000) >> 12;
-            $this->increment = ($snowflake & 0xFFF);
-        }
+        $snowflake = (int) $snowflake;
+        $this->binary = \str_pad(\decbin($snowflake), 64, 0, \STR_PAD_LEFT);
+
+        $time = (string) ($snowflake >> 22);
+
+        $this->timestamp = (float) ((((int) \substr($time, 0, -3)) + self::EPOCH).'.'.\substr($time, -3));
+        $this->workerID = ($snowflake & 0x3E0000) >> 17;
+        $this->processID = ($snowflake & 0x1F000) >> 12;
+        $this->increment = ($snowflake & 0xFFF);
     }
     
     /**
@@ -115,13 +104,8 @@ class Snowflake {
         $mtime = \explode('.', ((string) \microtime(true)));
         $time = ((string) (((int) $mtime[0]) - self::EPOCH)).\substr($mtime[1], 0, 3);
         
-        if(\PHP_INT_SIZE === 4) {
-            $binary = \str_pad(\base_convert($time, 10, 2), 42, 0, \STR_PAD_LEFT).$workerID.$processID.\str_pad(\decbin((self::$incrementIndex++)), 12, 0, \STR_PAD_LEFT);
-            return \base_convert($binary, 2, 10);
-        } else {
-            $binary = \str_pad(\decbin(((int) $time)), 42, 0, \STR_PAD_LEFT).$workerID.$processID.\str_pad(\decbin((self::$incrementIndex++)), 12, 0, \STR_PAD_LEFT);
-            return ((string) \bindec($binary));
-        }
+        $binary = \str_pad(\decbin(((int) $time)), 42, 0, \STR_PAD_LEFT).$workerID.$processID.\str_pad(\decbin((self::$incrementIndex++)), 12, 0, \STR_PAD_LEFT);
+        return ((string) \bindec($binary));
     }
     
     /**
