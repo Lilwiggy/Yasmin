@@ -25,7 +25,7 @@ class GuildMemberStorage extends Storage {
     
     /**
      * Resolves given data to a guildmember.
-     * @param \CharlotteDunois\Yasmin\Models\GuildMember|\CharlotteDunois\Yasmin\Models\User|string  string = user ID
+     * @param \CharlotteDunois\Yasmin\Models\GuildMember|\CharlotteDunois\Yasmin\Models\User|int|string  int/string = user ID
      * @return \CharlotteDunois\Yasmin\Models\GuildMember
      * @throws \InvalidArgumentException
      */
@@ -38,11 +38,11 @@ class GuildMemberStorage extends Storage {
             $guildmember = $guildmember->id;
         }
         
-        if(\is_int($guildmember)) {
-            $guildmember = (string) $guildmember;
+        if(\is_string($guildmember)) {
+            $guildmember = (int) $guildmember;
         }
         
-        if(\is_string($guildmember) && $this->has($guildmember)) {
+        if($this->has($guildmember)) {
             return $this->get($guildmember);
         }
         

@@ -12,11 +12,11 @@ namespace CharlotteDunois\Yasmin\Models;
 /**
  * Represents a webhook.
  *
- * @property string                                    $id         The webhook ID.
+ * @property int                                       $id         The webhook ID.
  * @property string|null                               $name       The webhook default name, or null.
  * @property string|null                               $avatar     The webhook default avatar, or null.
- * @property string|null                               $channelID  The channel the webhook belongs to.
- * @property string|null                               $guildID    The guild the webhook belongs to, or null.
+ * @property int|null                                  $channelID  The channel the webhook belongs to, or null.
+ * @property int|null                                  $guildID    The guild the webhook belongs to, or null.
  * @property \CharlotteDunois\Yasmin\Models\User|null  $owner      The owner of the webhook, or null.
  * @property string                                    $token      The webhook token.
  */
@@ -36,7 +36,7 @@ class Webhook extends ClientBase {
     function __construct(\CharlotteDunois\Yasmin\Client $client, array $webhook) {
         parent::__construct($client);
         
-        $this->id = $webhook['id'];
+        $this->id = (int) $webhook['id'];
         $this->_patch($webhook);
     }
     
@@ -261,8 +261,8 @@ class Webhook extends ClientBase {
     function _patch(array $webhook) {
         $this->name = $webhook['name'] ?? null;
         $this->avatar = $webhook['avatar'] ?? null;
-        $this->channelID = $webhook['channel_id'] ?? null;
-        $this->guildID = $webhook['guild_id'] ?? null;
+        $this->channelID = (!empty($webhook['channel_id']) ? ((int) $webhook['channel_id']) : null);
+        $this->guildID = (!empty($webhook['guild_id']) ? ((int) $webhook['guild_id']) : null);
         $this->owner = (!empty($webhook['user']) ? $this->client->users->patch($webhook['user']) : null);
         $this->token = $webhook['token'];
     }

@@ -16,7 +16,7 @@ namespace CharlotteDunois\Yasmin\Models;
  * @property int                                                     $type           The type.
  * @property string|null                                             $url            The stream url, if streaming.
  *
- * @property string|null                                             $applicationID  The application ID associated with the activity, or null.
+ * @property int|null                                                $applicationID  The application ID associated with the activity, or null.
  * @property \CharlotteDunois\Yasmin\Models\RichPresenceAssets|null  $assets         Assets for rich presence, or null.
  * @property string|null                                             $details        Details about the activity, or null.
  * @property array|null                                              $party          Party of the activity, an array in the format <code>[ 'id' => string, 'size' => [ size (int), max (int|null) ]|null ]</code>, or null.
@@ -82,7 +82,7 @@ class Activity extends ClientBase {
         $this->type = $activity['type'];
         $this->url = (!empty($activity['url']) ? $activity['url'] : null);
         
-        $this->applicationID = $activity['application_id'] ?? null;
+        $this->applicationID = (!empty($activity['application_id']) ? ((int) $activity['application_id']) : null);
         $this->details = $activity['details'] ?? null;
         $this->party = (!empty($activity['party']) ?
             array(

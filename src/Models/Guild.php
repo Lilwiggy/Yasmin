@@ -12,7 +12,7 @@ namespace CharlotteDunois\Yasmin\Models;
 /**
  * Represents a guild. It's recommended to see if a guild is available before performing operations or reading data from it.
  *
- * @property string                                                         $id                           The guild ID.
+ * @property int                                                            $id                           The guild ID.
  * @property bool                                                           $available                    Whether the guild is available.
  * @property string                                                         $name                         The guild name.
  * @property int                                                            $createdTimestamp             The timestamp when this guild was created.
@@ -30,16 +30,16 @@ namespace CharlotteDunois\Yasmin\Models;
  * @property string                                                         $explicitContentFilter        The explicit content filter level of the guild. ({@see Guild::EXPLICIT_CONTENT_FILTER})
  * @property string                                                         $region                       The region the guild is located in.
  * @property string                                                         $verificationLevel            The verification level of the guild. ({@see Guild::VERIFICATION_LEVEL})
- * @property string|null                                                    $systemChannelID              The ID of the system channel, or null.
- * @property string|null                                                    $afkChannelID                 The ID of the afk channel, or null.
+ * @property int|null                                                       $systemChannelID              The ID of the system channel, or null.
+ * @property int|null                                                       $afkChannelID                 The ID of the afk channel, or null.
  * @property int|null                                                       $afkTimeout                   The time in seconds before an user is counted as "away from keyboard".
  * @property string[]                                                       $features                     An array of guild features.
  * @property string                                                         $mfaLevel                     The required MFA level for the guild. ({@see Guild::MFA_LEVEL})
  * @property string|null                                                    $applicationID                Application ID of the guild creator, if it is bot-created.
  * @property bool                                                           $embedEnabled                 Whether the guild is embeddable or not (e.g. widget).
- * @property string|null                                                    $embedChannelID               The ID of the embed channel, or null.
+ * @property int|null                                                       $embedChannelID               The ID of the embed channel, or null.
  * @property bool                                                           $widgetEnabled                Whether the guild widget is enabled or not.
- * @property string|null                                                    $widgetChannelID              The ID of the widget channel, or null.
+ * @property int|null                                                       $widgetChannelID              The ID of the widget channel, or null.
  *
  * @property \CharlotteDunois\Yasmin\Models\VoiceChannel|null               $afkChannel                   The guild's afk channel, or null.
  * @property \DateTime                                                      $createdAt                    The DateTime instance of createdTimestamp.
@@ -138,7 +138,8 @@ class Guild extends ClientBase {
     function __construct(\CharlotteDunois\Yasmin\Client $client, array $guild) {
         parent::__construct($client);
         
-        $this->client->guilds->set($guild['id'], $this);
+        $this->id = (int) $guild['id'];
+        $this->client->guilds->set($this->id, $this);
         
         $this->channels = new \CharlotteDunois\Yasmin\Models\ChannelStorage($client);
         $this->emojis = new \CharlotteDunois\Yasmin\Models\EmojiStorage($client, $this);
@@ -146,7 +147,6 @@ class Guild extends ClientBase {
         $this->presences = new \CharlotteDunois\Yasmin\Models\PresenceStorage($client);
         $this->roles = new \CharlotteDunois\Yasmin\Models\RoleStorage($client, $this);
         
-        $this->id = $guild['id'];
         $this->available = (empty($guild['unavailable']));
         $this->createdTimestamp = (int) \CharlotteDunois\Yasmin\Utils\Snowflake::deconstruct($this->id)->timestamp;
         
@@ -457,9 +457,9 @@ class Guild extends ClientBase {
      *   'verificationLevel' => int,
      *   'explicitContentFilter' => int,
      *   'defaultMessageNotifications' => int,
-     *   'afkChannel' => string|\CharlotteDunois\Yasmin\Models\VoiceChannel|null,
+     *   'afkChannel' => string|int|\CharlotteDunois\Yasmin\Models\VoiceChannel|null,
      *   'afkTimeout' => int|null,
-     *   'systemChannel' => string|\CharlotteDunois\Yasmin\Models\TextChannel|null,
+     *   'systemChannel' => string|int|\CharlotteDunois\Yasmin\Models\TextChannel|null,
      *   'owner' => string|\CharlotteDunois\Yasmin\Models\GuildMember,
      *   'icon' => string, (file path or URL, or data)
      *   'splash' => string, (file path or URL, or data)
@@ -995,7 +995,7 @@ class Guild extends ClientBase {
         $this->name = $guild['name'];
         $this->icon = $guild['icon'];
         $this->splash = $guild['splash'];
-        $this->ownerID = $guild['owner_id'];
+        $this->ownerID = (int) $guild['owner_id'];
         $this->large = (bool) ($guild['large'] ?? $this->large);
         $this->memberCount = $guild['member_count']  ?? $this->memberCount;
         
@@ -1003,18 +1003,18 @@ class Guild extends ClientBase {
         $this->explicitContentFilter = self::EXPLICIT_CONTENT_FILTER[$guild['explicit_content_filter']] ?? $this->explicitContentFilter;
         $this->region = $guild['region'];
         $this->verificationLevel = self::VERIFICATION_LEVEL[$guild['verification_level']] ?? $this->verificationLevel;
-        $this->systemChannelID = $guild['system_channel_id'];
+        $this->systemChannelID = (!empty($guild['system_channel_id']) ? ((int) $guild['system_channel_id']) : null);
         
-        $this->afkChannelID = $guild['afk_channel_id'];
+        $this->afkChannelID = (!empty($guild['afk_channel_id']) ? ((int) $guild['afk_channel_id']) : null);
         $this->afkTimeout = $guild['afk_timeout'];
         $this->features = $guild['features'];
         $this->mfaLevel = self::MFA_LEVEL[$guild['mfa_level']] ?? $this->mfaLevel;
         $this->applicationID = $guild['application_id'];
         
         $this->embedEnabled = (bool) ($guild['embed_enabled'] ?? $this->embedEnabled);
-        $this->embedChannelID = $guild['embed_channel_id'] ?? $this->embedChannelID;
+        $this->embedChannelID = (!empty($guild['embed_channel_id']) ? ((int) $guild['embed_channel_id']) : $this->embedChannelID);
         $this->widgetEnabled = (bool) ($guild['widget_enabled'] ?? $this->widgetEnabled);
-        $this->widgetChannelID = $guild['widget_channel_id'] ?? $this->widgetChannelID;
+        $this->widgetChannelID = (!empty($guild['widget_channel_id']) ? ((int) $guild['widget_channel_id']) : $this->widgetChannelID);
         
         foreach($guild['roles'] as $role) {
             $this->roles->factory($role);

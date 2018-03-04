@@ -11,7 +11,7 @@ namespace CharlotteDunois\Yasmin\Models;
 
 /**
  * Represents a guild's category channel.
- * @property string                                    $id                     The ID of the channel.
+ * @property int                                       $id                     The ID of the channel.
  * @property string                                    $name                   The channel name.
  * @property string                                    $type                   The channel type ({@see \CharlotteDunois\Yasmin\Models\ChannelStorage::CHANNEL_TYPES}).
  * @property \CharlotteDunois\Yasmin\Models\Guild      $guild                  The guild this category channel belongs to.
@@ -44,7 +44,7 @@ class CategoryChannel extends ClientBase
         parent::__construct($client);
         $this->guild = $guild;
         
-        $this->id = $channel['id'];
+        $this->id = (int) $channel['id'];
         $this->type = \CharlotteDunois\Yasmin\Models\ChannelStorage::CHANNEL_TYPES[$channel['type']];
         $this->createdTimestamp = (int) \CharlotteDunois\Yasmin\Utils\Snowflake::deconstruct($this->id)->timestamp;
         $this->permissionOverwrites = new \CharlotteDunois\Yasmin\Utils\Collection();

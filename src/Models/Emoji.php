@@ -12,7 +12,7 @@ namespace CharlotteDunois\Yasmin\Models;
 /**
  * Represents an emoji - both custom and unicode emojis.
  *
- * @property string|null                                          $id                 The emoji ID, or null for unicode emoji.
+ * @property int|null                                             $id                 The emoji ID, or null for unicode emoji.
  * @property string                                               $name               The emoji name.
  * @property \CharlotteDunois\Yasmin\Models\User|null             $user               The user that created the emoji, or null.
  * @property \CharlotteDunois\Yasmin\Models\Guild|null            $guild              The guild this emoji belongs to, or null.
@@ -44,7 +44,7 @@ class Emoji extends ClientBase {
     function __construct(\CharlotteDunois\Yasmin\Client $client, ?\CharlotteDunois\Yasmin\Models\Guild $guild = null, array $emoji) {
         parent::__construct($client);
         
-        $this->id = (!empty($emoji['id']) ? $emoji['id'] : null);
+        $this->id = (!empty($emoji['id']) ? ((int) $emoji['id']) : null);
         $this->createdTimestamp = ($this->id ? (int) \CharlotteDunois\Yasmin\Utils\Snowflake::deconstruct($this->id)->timestamp : null);
         
         $this->guild = ($this->id ? $guild : null);

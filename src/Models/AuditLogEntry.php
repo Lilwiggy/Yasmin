@@ -12,8 +12,8 @@ namespace CharlotteDunois\Yasmin\Models;
 /**
  * Represents a guild audit log entry.
  *
- * @property \CharlotteDunois\Yasmin\Models\AuditLog  $log               The guild audit log which this entry belongs to.
- * @property string                                        $id                The ID of the audit log.
+ * @property \CharlotteDunois\Yasmin\Models\AuditLog       $log               The guild audit log which this entry belongs to.
+ * @property int                                           $id                The ID of the audit log.
  * @property array[]                                       $changes           Specific property changes.
  * @property string                                        $userID            The ID of the user which triggered the audit log.
  * @property string                                        $actionType        Specific action type of this entry in its string presentation.
@@ -98,7 +98,7 @@ class AuditLogEntry extends ClientBase {
         parent::__construct($client);
         $this->log = $log;
         
-        $this->id = $entry['id'];
+        $this->id = (int) $entry['id'];
         $this->changes = $entry['changes'] ?? array();
         $this->userID = $entry['user_id'];
         $this->actionType = (\array_search($entry['action_type'], self::ACTION_TYPES, true) ?: '');

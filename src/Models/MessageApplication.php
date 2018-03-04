@@ -12,7 +12,7 @@ namespace CharlotteDunois\Yasmin\Models;
 /**
  * Represents a message application.
  *
- * @property string  $id           The ID of the application.
+ * @property int     $id           The ID of the application.
  * @property string  $name         The name of the application.
  * @property string  $icon         The hash of the application icon.
  * @property string  $coverImage   The hash of the application cover image.
@@ -31,7 +31,7 @@ class MessageApplication extends ClientBase {
     function __construct(\CharlotteDunois\Yasmin\Client $client, array $application) {
         parent::__construct($client);
         
-        $this->id = $application['id'];
+        $this->id = (int) $application['id'];
         $this->name = $application['name'];
         $this->icon = $application['icon'];
         $this->coverImage = $application['cover_image'];

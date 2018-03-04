@@ -12,7 +12,7 @@ namespace CharlotteDunois\Yasmin\Models;
 /**
  * Represents an user on Discord.
  *
- * @property string                                               $id                 The user ID.
+ * @property int                                                  $id                 The user ID.
  * @property string                                               $username           The username.
  * @property string                                               $discriminator      The discriminator of this user.
  * @property boolean                                              $bot                Is the user a bot? Or are you a bot?
@@ -22,6 +22,7 @@ namespace CharlotteDunois\Yasmin\Models;
  * @property boolean|null                                         $verified           Whether the email on this account has been verified, or null if no information provided.
  * @property boolean                                              $webhook            Determines wether the user is a webhook or not.
  * @property int                                                  $createdTimestamp   The timestamp of when this user was created.
+ * @property int|null                                             $lastMessageID      The last message ID from the user while the bot was online, or null.
  *
  * @property \DateTime                                            $createdAt          An DateTime instance of the createdTimestamp.
  * @property int                                                  $defaultAvatar      The identifier of the default avatar for this user.
@@ -57,7 +58,7 @@ class User extends ClientBase {
     function __construct(\CharlotteDunois\Yasmin\Client $client, array $user, bool $isWebhook = false, bool $userFetched = false) {
         parent::__construct($client);
         
-        $this->id = $user['id'];
+        $this->id = (int) $user['id'];
         $this->webhook = $isWebhook;
         $this->userFetched = $userFetched;
         

@@ -12,12 +12,12 @@ namespace CharlotteDunois\Yasmin\Models;
 /**
  * Represents a partial channel.
  *
- * @property string       $id                The channel ID.
+ * @property int          $id                The channel ID.
  * @property string       $name              The channel name.
  * @property int          $createdTimestamp  The timestamp when this channel was created.
  * @property string       $type              The type of the channel.
  *
- * @property \DateTime   $createdAt          The DateTime instance of createdTimestamp.
+ * @property \DateTime    $createdAt         The DateTime instance of createdTimestamp.
  */
 class PartialChannel extends ClientBase {
     protected $id;
@@ -33,7 +33,7 @@ class PartialChannel extends ClientBase {
     function __construct(\CharlotteDunois\Yasmin\Client $client, array $channel) {
         parent::__construct($client);
         
-        $this->id = $channel['id'];
+        $this->id = (int) $channel['id'];
         $this->name = $channel['name'];
         $this->type = \CharlotteDunois\Yasmin\Models\ChannelStorage::CHANNEL_TYPES[$channel['type']];
         

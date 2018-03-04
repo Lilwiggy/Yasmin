@@ -25,7 +25,7 @@ class EmojiStorage extends Storage {
     
     /**
      * Resolves given data to an emoji.
-     * @param \CharlotteDunois\Yasmin\Models\Emoji|\CharlotteDunois\Yasmin\Models\MessageReaction|string  string = emoji ID
+     * @param \CharlotteDunois\Yasmin\Models\Emoji|\CharlotteDunois\Yasmin\Models\MessageReaction|int|string  int/string = emoji ID
      * @return \CharlotteDunois\Yasmin\Models\Emoji
      * @throws \InvalidArgumentException
      */
@@ -38,11 +38,11 @@ class EmojiStorage extends Storage {
             return $emoji->emoji;
         }
         
-        if(\is_int($emoji)) {
-            $emoji = (string) $emoji;
+        if(\is_string($emoji)) {
+            $emoji = (int) $emoji;
         }
         
-        if(\is_string($emoji) && $this->has($emoji)) {
+        if($this->has($emoji)) {
             return $this->get($emoji);
         }
         

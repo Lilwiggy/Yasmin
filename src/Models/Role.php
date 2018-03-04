@@ -13,7 +13,7 @@ namespace CharlotteDunois\Yasmin\Models;
  * Represents a role.
  *
  * @property \CharlotteDunois\Yasmin\Models\Guild        $guild               The guild the role belongs to.
- * @property string                                      $id                  The role ID.
+ * @property int                                         $id                  The role ID.
  * @property string                                      $name                The role name.
  * @property int                                         $createdTimestamp    When the role was created.
  * @property int                                         $color               The color of the role.
@@ -78,7 +78,7 @@ class Role extends ClientBase {
         parent::__construct($client);
         $this->guild = $guild;
         
-        $this->id = $role['id'];
+        $this->id = (int) $role['id'];
         $this->createdTimestamp = (int) \CharlotteDunois\Yasmin\Utils\Snowflake::deconstruct($this->id)->timestamp;
         
         $this->_patch($role);

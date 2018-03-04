@@ -15,7 +15,7 @@ namespace CharlotteDunois\Yasmin\Models;
 class GuildStorage extends Storage {
     /**
      * Resolves given data to a guild.
-     * @param \CharlotteDunois\Yasmin\Models\Guild|string  $guild  string = guild ID
+     * @param \CharlotteDunois\Yasmin\Models\Guild|int|string  $guild  int/string = guild ID
      * @return \CharlotteDunois\Yasmin\Models\Guild
      * @throws \InvalidArgumentException
      */
@@ -24,11 +24,11 @@ class GuildStorage extends Storage {
             return $guild;
         }
         
-        if(\is_int($guild)) {
-            $guild = (string) $guild;
+        if(\is_string($guild)) {
+            $guild = (int) $guild;
         }
         
-        if(\is_string($guild) && $this->has($guild)) {
+        if($this->has($guild)) {
             return $this->get($guild);
         }
         

@@ -12,7 +12,7 @@ namespace CharlotteDunois\Yasmin\Models;
 /**
  * Represents a guild member.
  *
- * @property string                                                         $id               The ID of the member.
+ * @property int                                                            $id               The ID of the member.
  * @property \CharlotteDunois\Yasmin\Models\User                            $user             The User instance of the member.
  * @property string|null                                                    $nickname         The nickname of the member, or null.
  * @property bool                                                           $deaf             Whether the member is server deafened.
@@ -24,8 +24,8 @@ namespace CharlotteDunois\Yasmin\Models;
  * @property bool                                                           $speaking         If the member is currently speaking.
  * @property \CharlotteDunois\Yasmin\Utils\Collection                       $roles            A Collection of all roles the member has, mapped by their ID. ({@see \CharlotteDunois\Yasmin\Models\Role})
  * @property bool                                                           $suppress         Whether you suppress the member.
- * @property string|null                                                    $voiceChannelID   The ID of the voice channel the member is in, or null.
- * @property string                                                         $voiceSessionID   The voice session ID, or null.
+ * @property int|null                                                       $voiceChannelID   The ID of the voice channel the member is in, or null.
+ * @property string|null                                                    $voiceSessionID   The voice session ID, or null.
  *
  * @property bool                                                           $bannable         Whether the member is bannable by the client user.
  * @property \CharlotteDunois\Yasmin\Models\Role|null                       $colorRole        The role of the member used to set their color, or null.
@@ -66,7 +66,7 @@ class GuildMember extends ClientBase {
         parent::__construct($client);
         $this->guild = $guild;
         
-        $this->id = $member['user']['id'];
+        $this->id = (int) $member['user']['id'];
         $this->user = $this->client->users->patch($member['user']);
         
         $this->roles = new \CharlotteDunois\Yasmin\Utils\Collection();
@@ -444,7 +444,7 @@ class GuildMember extends ClientBase {
      * @internal
      */
     function _setVoiceState(array $voice) {
-        $this->voiceChannelID = $voice['channel_id'];
+        $this->voiceChannelID = (!empty($voice['channel_id']) ? ((int) $voice['channel_id']) : null);
         $this->voiceSessionID = $voice['session_id'];
         $this->deaf = (bool) $voice['deaf'];
         $this->mute = (bool) $voice['mute'];
@@ -471,6 +471,8 @@ class GuildMember extends ClientBase {
             $this->roles->set($this->guild->id, $this->guild->roles->get($this->guild->id));
             
             foreach($data['roles'] as $role) {
+                $role = (int) $role;
+                
                 if(!$this->roles->has($role)) {
                     $this->roles->set($role, $this->guild->roles->get($role));
                 }

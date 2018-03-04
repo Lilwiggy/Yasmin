@@ -34,7 +34,7 @@ class ChannelStorage extends Storage {
     
     /**
      * Resolves given data to a channel.
-     * @param \CharlotteDunois\Yasmin\Interfaces\ChannelInterface|string  string = channel ID
+     * @param \CharlotteDunois\Yasmin\Interfaces\ChannelInterface|int|string  int/string = channel ID
      * @return \CharlotteDunois\Yasmin\Interfaces\ChannelInterface
      * @throws \InvalidArgumentException
      */
@@ -43,11 +43,11 @@ class ChannelStorage extends Storage {
             return $channel;
         }
         
-        if(\is_int($channel)) {
-            $channel = (string) $channel;
+        if(\is_string($channel)) {
+            $channel = (int) $channel;
         }
         
-        if(\is_string($channel) && $this->has($channel)) {
+        if($this->has($channel)) {
             return $this->get($channel);
         }
         

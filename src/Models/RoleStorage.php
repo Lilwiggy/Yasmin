@@ -25,7 +25,7 @@ class RoleStorage extends Storage {
     
     /**
      * Resolves given data to a Role.
-     * @param \CharlotteDunois\Yasmin\Models\Role|string  $role  string = role ID
+     * @param \CharlotteDunois\Yasmin\Models\Role|int|string  $role  int/string = role ID
      * @return \CharlotteDunois\Yasmin\Models\Role
      * @throws \InvalidArgumentException
      */
@@ -34,11 +34,11 @@ class RoleStorage extends Storage {
             return $role;
         }
         
-        if(\is_int($role)) {
-            $role = (string) $role;
+        if(\is_string($role)) {
+            $role = (int) $role;
         }
         
-        if(\is_string($role) && $this->has($role)) {
+        if($this->has($role)) {
             return $this->get($role);
         }
         

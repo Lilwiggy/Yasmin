@@ -12,7 +12,7 @@ namespace CharlotteDunois\Yasmin\Models;
 /**
  * Represents a partial guild.
  *
- * @property string       $id                The guild ID.
+ * @property int          $id                The guild ID.
  * @property string       $name              The guild name.
  * @property int          $createdTimestamp  The timestamp when this guild was created.
  * @property string|null  $icon              The guild icon, or null.
@@ -34,7 +34,7 @@ class PartialGuild extends ClientBase {
     function __construct(\CharlotteDunois\Yasmin\Client $client, array $guild) {
         parent::__construct($client);
         
-        $this->id = $guild['id'];
+        $this->id = (int) $guild['id'];
         $this->name = $guild['name'];
         $this->icon = $guild['icon'] ?? null;
         $this->splash = $guild['splash'] ?? null;

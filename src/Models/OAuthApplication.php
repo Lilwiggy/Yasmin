@@ -12,7 +12,7 @@ namespace CharlotteDunois\Yasmin\Models;
 /**
  * Represents an OAuth Application.
  *
- * @property string                                               $id                   The application ID.
+ * @property int                                                  $id                   The application ID.
  * @property string                                               $name                 The name of the application.
  * @property string|null                                          $icon                 The hash of the application hash, or null.
  * @property string|null                                          $description          The application's description, or null.
@@ -37,7 +37,7 @@ class OAuthApplication extends ClientBase {
     function __construct(\CharlotteDunois\Yasmin\Client $client, array $application) {
         parent::__construct($client);
         
-        $this->id = $application['id'];
+        $this->id = (int) $application['id'];
         $this->name = $application['name'];
         $this->icon = $application['icon'] ?? null;
         $this->description = $application['description'] ?? null;

@@ -34,7 +34,7 @@ class UserStorage extends Storage {
     
     /**
      * Resolves given data to an user.
-     * @param \CharlotteDunois\Yasmin\Models\User|\CharlotteDunois\Yasmin\Models\GuildMember|string  $user  string = user ID
+     * @param \CharlotteDunois\Yasmin\Models\User|\CharlotteDunois\Yasmin\Models\GuildMember|int|string  $user  int/string = user ID
      * @return \CharlotteDunois\Yasmin\Models\User
      * @throws \InvalidArgumentException
      */
@@ -47,11 +47,11 @@ class UserStorage extends Storage {
             return $user->user;
         }
         
-        if(\is_int($user)) {
-            $user = (string) $user;
+        if(\is_string($user)) {
+            $user = (int) $user;
         }
         
-        if(\is_string($user) && $this->has($user)) {
+        if($this->has($user)) {
             return $this->get($user);
         }
         

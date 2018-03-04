@@ -12,7 +12,7 @@ namespace CharlotteDunois\Yasmin\Models;
 /**
  * Represents an attachment (from a message).
  *
- * @property string                                           $id                 The attachment ID.
+ * @property int                                              $id                 The attachment ID.
  * @property string                                           $filename           The filename.
  * @property int                                              $size               The filename in bytes.
  * @property string                                           $url                The url to the file.
@@ -43,7 +43,7 @@ class MessageAttachment extends Base {
      */
     function __construct(array $attachment = array()) {
         if(!empty($attachment)) {
-            $this->id = $attachment['id'];
+            $this->id = (int) $attachment['id'];
             $this->filename = $attachment['filename'];
             $this->size = $attachment['size'];
             $this->url = $attachment['url'];

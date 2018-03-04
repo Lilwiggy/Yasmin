@@ -33,9 +33,9 @@ class UserConnection extends ClientBase {
         parent::__construct($client);
         $this->user = $user;
         
-        $this->id = $connection['id'];
-        $this->name = $connection['name'];
-        $this->type = $connection['type'];
-        $this->revoked = $connection['revoked'];
+        $this->id = (string) $connection['id'];
+        $this->name = (string) $connection['name'];
+        $this->type = (string) $connection['type'];
+        $this->revoked = (bool) $connection['revoked'];
     }
 }
