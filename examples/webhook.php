@@ -14,7 +14,7 @@
 require_once(__DIR__.'/vendor/autoload.php');
 
 $loop = \React\EventLoop\Factory::create();
-$webhook = new \CharlotteDunois\Yasmin\WebhookClient('WEBHOOK_ID', 'WEBHOOK_TOKEN', array(), $loop);
+$webhook = new \CharlotteDunois\Yasmin\WebhookClient('WEBHOOK_ID', 'WEBHOOK_TOKEN', $loop);
 
 $webhook->send('Hallo')->then(function () use ($loop) {
     echo 'Message sent!'.PHP_EOL;
