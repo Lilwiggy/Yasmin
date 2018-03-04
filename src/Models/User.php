@@ -140,7 +140,7 @@ class User extends ClientBase {
     
     /**
      * Opens a DM channel to this user. Resolves with an instance of DMChannel.
-     * @return \React\Promise\Promise
+     * @return \React\Promise\ExtendedPromiseInterface
      * @see \CharlotteDunois\Yasmin\Models\DMChannel
      */
     function createDM() {
@@ -159,7 +159,7 @@ class User extends ClientBase {
     
     /**
      * Deletes an existing DM channel to this user. Resolves with $this.
-     * @return \React\Promise\Promise
+     * @return \React\Promise\ExtendedPromiseInterface
      */
     function deleteDM() {
         return (new \React\Promise\Promise(function (callable $resolve, callable $reject) {
@@ -215,7 +215,7 @@ class User extends ClientBase {
     /**
      * Fetches the User's connections. Requires connections scope. Resolves with a Collection of UserConnection instances, mapped by their ID.
      * @param string  $accessToken
-     * @return \React\Promise\Promise
+     * @return \React\Promise\ExtendedPromiseInterface
      * @see \CharlotteDunois\Yasmin\Models\UserConnection
      */
     function fetchUserConnections(string $accessToken) {
