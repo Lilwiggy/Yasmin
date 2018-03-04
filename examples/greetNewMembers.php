@@ -15,7 +15,7 @@
 require_once(__DIR__.'/vendor/autoload.php');
 
 $loop = \React\EventLoop\Factory::create();
-$client = new \CharlotteDunois\Yasmin\Client(array(), $loop);
+$client = new \CharlotteDunois\Yasmin\Client($loop);
 
 $client->on('guildMemberAdd', function ($member) {
     try {
