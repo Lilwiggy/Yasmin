@@ -17,12 +17,12 @@ namespace CharlotteDunois\Yasmin;
 class WebhookClient extends \CharlotteDunois\Yasmin\Models\Webhook {
     /**
      * Constructor.
-     * @param string|int                           $id       The webhook ID.
+     * @param int                                  $id       The webhook ID.
      * @param string                               $token    The webhook token.
      * @param \React\EventLoop\LoopInterface|null  $loop     The ReactPHP Event Loop.
      * @param array                                $options  Any Client Options.
      */
-    function __construct($id, string $token, ?\React\EventLoop\LoopInterface $loop = null, array $options = array()) {
+    function __construct(int $id, string $token, ?\React\EventLoop\LoopInterface $loop = null, array $options = array()) {
         $options['internal.ws.disable'] = true;
         
         $client = new \CharlotteDunois\Yasmin\Client($loop, $options);

@@ -603,11 +603,11 @@ class Client implements \CharlotteDunois\Events\EventEmitterInterface {
     
     /**
      * Fetches an User from the API. Resolves with an User.
-     * @param string  $userid  The User ID to fetch.
+     * @param int  $userid  The User ID to fetch.
      * @return \React\Promise\Promise
      * @see \CharlotteDunois\Yasmin\Models\User
      */
-    function fetchUser(string $userid) {
+    function fetchUser(int $userid) {
         return (new \React\Promise\Promise(function (callable $resolve, $reject) use  ($userid) {
             if($this->users->has($userid)) {
                 return $resolve($this->users->get($userid));
@@ -642,12 +642,12 @@ class Client implements \CharlotteDunois\Events\EventEmitterInterface {
     
     /**
      * Fetches a webhook from Discord. Resolves with an instance of Webhook.
-     * @param string       $id
+     * @param int       $id
      * @param string|null  $token
      * @return \React\Promise\Promise
      * @see \CharlotteDunois\Yasmin\Models\Webhook
      */
-    function fetchWebhook(string $id, ?string $token = null) {
+    function fetchWebhook(int $id, ?string $token = null) {
         return (new \React\Promise\Promise(function (callable $resolve, callable $reject) use ($id, $token) {
             $method = (!empty($token) ? 'getWebhookToken' : 'getWebhook');
             

@@ -616,11 +616,11 @@ class Guild extends ClientBase {
     
     /**
      * Fetches a specific guild member. Resolves with an instance of GuildMember.
-     * @param string  $userid  The ID of the guild member.
+     * @param int  $userid  The ID of the guild member.
      * @return \React\Promise\Promise
      * @see \CharlotteDunois\Yasmin\Models\GuildMember
      */
-    function fetchMember(string $userid) {
+    function fetchMember(int $userid) {
         return (new \React\Promise\Promise(function (callable $resolve, callable $reject) use ($userid) {
             if($this->members->has($userid) && ($this->members->get($userid) instanceof \CharlotteDunois\Yasmin\Models\GuildMember)) {
                 return $resolve($this->members->get($userid));
