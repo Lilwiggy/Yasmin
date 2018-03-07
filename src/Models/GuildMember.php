@@ -12,7 +12,7 @@ namespace CharlotteDunois\Yasmin\Models;
 /**
  * Represents a guild member.
  *
-  * @property string                                                         $id               The ID of the member.
+ * @property int                                                            $id               The ID of the member.
  * @property string|null                                                    $nickname         The nickname of the member, or null.
  * @property bool                                                           $deaf             Whether the member is server deafened.
  * @property bool                                                           $mute             Whether the member is server muted.
