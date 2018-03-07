@@ -65,7 +65,7 @@ class GuildMember extends ClientBase {
         parent::__construct($client);
         $this->guild = $guild;
         
-        $this->id = $member['user']['id'];
+        $this->id = (int) $member['user']['id'];
         $this->client->users->patch($member['user']);
         
         $this->roles = new \CharlotteDunois\Yasmin\Utils\Collection();
