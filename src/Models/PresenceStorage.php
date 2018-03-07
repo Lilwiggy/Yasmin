@@ -15,7 +15,7 @@ namespace CharlotteDunois\Yasmin\Models;
 class PresenceStorage extends Storage {
     /**
      * Resolves given data to a presence.
-     * @param \CharlotteDunois\Yasmin\Models\Presence|\CharlotteDunois\Yasmin\Models\User|string  string = user ID
+     * @param \CharlotteDunois\Yasmin\Models\Presence|\CharlotteDunois\Yasmin\Models\User|string  $presence  string = user ID
      * @return \CharlotteDunois\Yasmin\Models\Presence
      * @throws \InvalidArgumentException
      */
@@ -28,11 +28,11 @@ class PresenceStorage extends Storage {
             $presence = $presence->id;
         }
         
-        if(\is_int($presence)) {
-            $presence = (string) $presence;
+        if(\is_string($presence)) {
+            $presence = (int) $presence;
         }
         
-        if(\is_string($presence) && $this->has($presence)) {
+        if($this->has($presence)) {
             return $this->get($presence);
         }
         

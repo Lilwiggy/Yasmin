@@ -34,7 +34,7 @@ class ChannelStorage extends Storage {
     
     /**
      * Resolves given data to a channel.
-     * @param \CharlotteDunois\Yasmin\Interfaces\ChannelInterface|int|string  int/string = channel ID
+     * @param \CharlotteDunois\Yasmin\Interfaces\ChannelInterface|int|string  $channel  int/string = channel ID
      * @return \CharlotteDunois\Yasmin\Interfaces\ChannelInterface
      * @throws \InvalidArgumentException
      */
