@@ -25,7 +25,7 @@ class PresenceUpdate implements \CharlotteDunois\Yasmin\Interfaces\WSEventInterf
         $this->clones = !($clones === true || \in_array('presenceUpdate', (array) $clones));
     }
     
-    function handle($data) {
+    function handle(array $data) {
         try {
             $user = $this->client->users->resolve($data['user']['id']);
             
@@ -37,9 +37,8 @@ class PresenceUpdate implements \CharlotteDunois\Yasmin\Interfaces\WSEventInterf
                 
                 $user->_patch($data['user']);
                 
-                if($user != $oldUser) {
-                    $this->client->emit('userUpdate', $user, $oldUser);
-                }
+                $this->client->emit('userUpdate', $user, $oldUser);
+                return;
             }
             
             $guild = $this->client->guilds->get($data['guild_id']);
