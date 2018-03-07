@@ -12,7 +12,7 @@ namespace CharlotteDunois\Yasmin\Models;
 /**
  * Represents a guild's text channel.
  *
- * @property string                                               $id                     The channel ID.
+ * @property int                                                  $id                     The channel ID.
  * @property string                                               $type                   The channel type. ({@see \CharlotteDunois\Yasmin\Models\ChannelStorage::CHANNEL_TYPES})
  * @property \CharlotteDunois\Yasmin\Models\Guild                 $guild                  The associated guild.
  * @property int                                                  $createdTimestamp       The timestamp of when this channel was created.
