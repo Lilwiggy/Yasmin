@@ -346,7 +346,7 @@ class Client implements \CharlotteDunois\Events\EventEmitterInterface {
     /**
      * Login into Discord. Opens a WebSocket Gateway connection. Resolves once a WebSocket connection has been successfully established (does not mean the client is ready).
      * @param bool   $force  Forces the client to get the gateway address from Discord.
-     * @return \React\Promise\Promise
+     * @return \React\Promise\ExtendedPromiseInterface
      * @throws \RuntimeException
      */
     function login(bool $force = false) {
@@ -389,7 +389,7 @@ class Client implements \CharlotteDunois\Events\EventEmitterInterface {
     /**
      * Cleanly logs out of Discord.
      * @param bool  $destroyUtils  Stop timers of utils which have an instance of the event loop.
-     * @return \React\Promise\Promise
+     * @return \React\Promise\ExtendedPromiseInterface
      */
     function destroy(bool $destroyUtils = true) {
         return (new \React\Promise\Promise(function (callable $resolve) use ($destroyUtils) {
@@ -449,7 +449,7 @@ class Client implements \CharlotteDunois\Events\EventEmitterInterface {
      * </pre>
      *
      * @param array  $options
-     * @return \React\Promise\Promise
+     * @return \React\Promise\ExtendedPromiseInterface
      * @throws \InvalidArgumentException
      * @see \CharlotteDunois\Yasmin\Models\Guild
      */
@@ -569,7 +569,7 @@ class Client implements \CharlotteDunois\Events\EventEmitterInterface {
     
     /**
      * Obtains the OAuth Application of the bot from Discord.
-     * @return \React\Promise\Promise
+     * @return \React\Promise\ExtendedPromiseInterface
      * @see \CharlotteDunois\Yasmin\Models\OAuthApplication
      */
     function fetchApplication() {
@@ -584,7 +584,7 @@ class Client implements \CharlotteDunois\Events\EventEmitterInterface {
     /**
      * Obtains an invite from Discord. Resolves with an instance of Invite.
      * @param string  $invite  The invite code or an invite URL.
-     * @return \React\Promise\Promise
+     * @return \React\Promise\ExtendedPromiseInterface
      * @see \CharlotteDunois\Yasmin\Models\Invite
      */
     function fetchInvite(string $invite) {
@@ -604,7 +604,7 @@ class Client implements \CharlotteDunois\Events\EventEmitterInterface {
     /**
      * Fetches an User from the API. Resolves with an User.
      * @param int  $userid  The User ID to fetch.
-     * @return \React\Promise\Promise
+     * @return \React\Promise\ExtendedPromiseInterface
      * @see \CharlotteDunois\Yasmin\Models\User
      */
     function fetchUser(int $userid) {
@@ -622,7 +622,7 @@ class Client implements \CharlotteDunois\Events\EventEmitterInterface {
     
     /**
      * Obtains the available voice regions from Discord. Resolves with a Collection of Voice Region instances, mapped by their ID.
-     * @return \React\Promise\Promise
+     * @return \React\Promise\ExtendedPromiseInterface
      * @see \CharlotteDunois\Yasmin\Models\VoiceRegion
      */
     function fetchVoiceRegions() {
@@ -644,7 +644,7 @@ class Client implements \CharlotteDunois\Events\EventEmitterInterface {
      * Fetches a webhook from Discord. Resolves with an instance of Webhook.
      * @param int       $id
      * @param string|null  $token
-     * @return \React\Promise\Promise
+     * @return \React\Promise\ExtendedPromiseInterface
      * @see \CharlotteDunois\Yasmin\Models\Webhook
      */
     function fetchWebhook(int $id, ?string $token = null) {
@@ -661,7 +661,7 @@ class Client implements \CharlotteDunois\Events\EventEmitterInterface {
     /**
      * Generates a link that can be used to invite the bot to a guild. Resolves with a string.
      * @param string|int  ...$permissions
-     * @return \React\Promise\Promise
+     * @return \React\Promise\ExtendedPromiseInterface
      * @throws \InvalidArgumentException
      */
     function generateOAuthInvite(...$permissions) {
