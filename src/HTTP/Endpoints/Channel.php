@@ -19,41 +19,41 @@ final class Channel {
      * @var array
      */
     const ENDPOINTS = array(
-        'get' => 'channels/%s',
-        'modify' => 'channels/%s',
-        'delete' => 'channels/%s',
+        'get' => 'channels/%d',
+        'modify' => 'channels/%d',
+        'delete' => 'channels/%d',
         'messages' => array(
-            'list' => 'channels/%s/messages',
-            'get' => 'channels/%s/messages/%s',
-            'create' => 'channels/%s/messages',
+            'list' => 'channels/%d/messages',
+            'get' => 'channels/%d/messages/%d',
+            'create' => 'channels/%d/messages',
             'reactions' => array(
-                'create' => 'channels/%s/messages/%s/reactions/%s/@me',
-                'delete' => 'channels/%s/messages/%s/reactions/%s/@me',
-                'deleteUser' => 'channels/%s/messages/%s/reactions/%s/%s',
-                'get' => 'channels/%s/messages/%s/reactions/%s',
-                'deleteAll' => 'channels/%s/messages/%s/reactions',
+                'create' => 'channels/%d/messages/%d/reactions/%s/@me',
+                'delete' => 'channels/%d/messages/%d/reactions/%s/@me',
+                'deleteUser' => 'channels/%d/messages/%d/reactions/%s/%d',
+                'get' => 'channels/%d/messages/%d/reactions/%d',
+                'deleteAll' => 'channels/%d/messages/%d/reactions',
             ),
-            'edit' => 'channels/%s/messages/%s',
-            'delete' => 'channels/%s/messages/%s',
-            'bulkDelete' => 'channels/%s/messages/bulk-delete'
+            'edit' => 'channels/%d/messages/%d',
+            'delete' => 'channels/%d/messages/%d',
+            'bulkDelete' => 'channels/%d/messages/bulk-delete'
         ),
         'permissions' => array(
-            'edit' => 'channels/%s/permissions/%s',
-            'delete' => 'channels/%s/permissions/%s'
+            'edit' => 'channels/%d/permissions/%d',
+            'delete' => 'channels/%d/permissions/%d'
         ),
         'invites' => array(
-            'list' => 'channels/%s/invites',
-            'create' => 'channels/%s/invites'
+            'list' => 'channels/%d/invites',
+            'create' => 'channels/%d/invites'
         ),
-        'typing' => 'channels/%s/typing',
+        'typing' => 'channels/%d/typing',
         'pins' => array(
-            'list' => 'channels/%s/pins',
-            'add' => 'channels/%s/pins/%s',
-            'delete' => 'channels/%s/pins/%s'
+            'list' => 'channels/%d/pins',
+            'add' => 'channels/%d/pins/%d',
+            'delete' => 'channels/%d/pins/%d'
         ),
         'groupDM' => array(
-            'add' => 'channels/%s/recipients/%s',
-            'remove' => 'channels/%s/recipients/%s'
+            'add' => 'channels/%d/recipients/%d',
+            'remove' => 'channels/%d/recipients/%d'
         )
     );
     
@@ -69,122 +69,122 @@ final class Channel {
         $this->api = $api;
     }
     
-    function getChannel(string $channelid) {
+    function getChannel(int $channelid) {
         $url = \CharlotteDunois\Yasmin\HTTP\APIEndpoints::format(self::ENDPOINTS['get'], $channelid);
         return $this->api->makeRequest('GET', $url, array());
     }
     
-    function modifyChannel(string $channelid, array $data, string $reason = '') {
+    function modifyChannel(int $channelid, array $data, string $reason = '') {
         $url = \CharlotteDunois\Yasmin\HTTP\APIEndpoints::format(self::ENDPOINTS['modify'], $channelid);
         return $this->api->makeRequest('PATCH', $url, array('auditLogReason' => $reason, 'data' => $data));
     }
     
-    function deleteChannel(string $channelid, string $reason = '') {
+    function deleteChannel(int $channelid, string $reason = '') {
         $url = \CharlotteDunois\Yasmin\HTTP\APIEndpoints::format(self::ENDPOINTS['delete'], $channelid);
         return $this->api->makeRequest('DELETE', $url, array('auditLogReason' => $reason));
     }
     
-    function getChannelMessages(string $channelid, array $options = array()) {
+    function getChannelMessages(int $channelid, array $options = array()) {
         $url = \CharlotteDunois\Yasmin\HTTP\APIEndpoints::format(self::ENDPOINTS['messages']['list'], $channelid);
         return $this->api->makeRequest('GET', $url, array('querystring' => $options));
     }
     
-    function getChannelMessage(string $channelid, string $messageid) {
+    function getChannelMessage(int $channelid, int $messageid) {
         $url = \CharlotteDunois\Yasmin\HTTP\APIEndpoints::format(self::ENDPOINTS['messages']['get'], $channelid, $messageid);
         return $this->api->makeRequest('GET', $url, array());
     }
     
-    function createMessage(string $channelid, array $options, array $files = array()) {
+    function createMessage(int $channelid, array $options, array $files = array()) {
         $url = \CharlotteDunois\Yasmin\HTTP\APIEndpoints::format(self::ENDPOINTS['messages']['create'], $channelid);
         return $this->api->makeRequest('POST', $url, array('data' => $options, 'files' => $files));
     }
     
-    function editMessage(string $channelid, string $messageid, array $options) {
+    function editMessage(int $channelid, int $messageid, array $options) {
         $url = \CharlotteDunois\Yasmin\HTTP\APIEndpoints::format(self::ENDPOINTS['messages']['edit'], $channelid, $messageid);
         return $this->api->makeRequest('PATCH', $url, array('data' => $options));
     }
     
-    function deleteMessage(string $channelid, string $messageid, string $reason = '') {
+    function deleteMessage(int $channelid, int $messageid, string $reason = '') {
         $url = \CharlotteDunois\Yasmin\HTTP\APIEndpoints::format(self::ENDPOINTS['messages']['delete'], $channelid, $messageid);
         return $this->api->makeRequest('DELETE', $url, array('auditLogReason' => $reason));
     }
     
-    function bulkDeleteMessages(string $channelid, array $snowflakes, string $reason = '') {
+    function bulkDeleteMessages(int $channelid, array $snowflakes, string $reason = '') {
         $url = \CharlotteDunois\Yasmin\HTTP\APIEndpoints::format(self::ENDPOINTS['messages']['bulkDelete'], $channelid);
         return $this->api->makeRequest('POST', $url, array('auditLogReason' => $reason, 'data' => array('messages' => $snowflakes)));
     }
     
-    function createMessageReaction(string $channelid, string $messageid, string $emoji) {
+    function createMessageReaction(int $channelid, int $messageid, string $emoji) {
         $url = \CharlotteDunois\Yasmin\HTTP\APIEndpoints::format(self::ENDPOINTS['messages']['reactions']['create'], $channelid, $messageid, $emoji);
         return $this->api->makeRequest('PUT', $url, array());
     }
     
-    function deleteMessageReaction(string $channelid, string $messageid, string $emoji) {
+    function deleteMessageReaction(int $channelid, int $messageid, string $emoji) {
         $url = \CharlotteDunois\Yasmin\HTTP\APIEndpoints::format(self::ENDPOINTS['messages']['reactions']['delete'], $channelid, $messageid, $emoji);
         return $this->api->makeRequest('DELETE', $url, array());
     }
     
-    function deleteMessageUserReaction(string $channelid, string $messageid, string $emoji, string $userid) {
+    function deleteMessageUserReaction(int $channelid, int $messageid, string $emoji, int $userid) {
         $url = \CharlotteDunois\Yasmin\HTTP\APIEndpoints::format(self::ENDPOINTS['messages']['reactions']['deleteUser'], $channelid, $messageid, $emoji, $userid);
         return $this->api->makeRequest('DELETE', $url, array());
     }
     
-    function getMessageReactions(string $channelid, string $messageid, string $emoji, array $querystring = array()) {
+    function getMessageReactions(int $channelid, int $messageid, string $emoji, array $querystring = array()) {
         $url = \CharlotteDunois\Yasmin\HTTP\APIEndpoints::format(self::ENDPOINTS['messages']['reactions']['get'], $channelid, $messageid, $emoji);
         return $this->api->makeRequest('GET', $url, array('querystring' => $querystring));
     }
     
-    function deleteMessageReactions(string $channelid, string $messageid) {
+    function deleteMessageReactions(int $channelid, int $messageid) {
         $url = \CharlotteDunois\Yasmin\HTTP\APIEndpoints::format(self::ENDPOINTS['messages']['reactions']['deleteAll'], $channelid, $messageid);
         return $this->api->makeRequest('DELETE', $url, array());
     }
     
-    function editChannelPermissions(string $channelid, string $overwriteid, array $options, string $reason = '') {
+    function editChannelPermissions(int $channelid, int $overwriteid, array $options, string $reason = '') {
         $url = \CharlotteDunois\Yasmin\HTTP\APIEndpoints::format(self::ENDPOINTS['permissions']['edit'], $channelid, $overwriteid);
         return $this->api->makeRequest('PUT', $url, array('auditLogReason' => $reason, 'data' => $options));
     }
     
-    function deleteChannelPermission(string $channelid, string $overwriteid, string $reason = '') {
+    function deleteChannelPermission(int $channelid, int $overwriteid, string $reason = '') {
         $url = \CharlotteDunois\Yasmin\HTTP\APIEndpoints::format(self::ENDPOINTS['permissions']['delete'], $channelid, $overwriteid);
         return $this->api->makeRequest('DELETE', $url, array('auditLogReason' => $reason));
     }
     
-    function getChannelInvites(string $channelid) {
+    function getChannelInvites(int $channelid) {
         $url = \CharlotteDunois\Yasmin\HTTP\APIEndpoints::format(self::ENDPOINTS['invites']['list'], $channelid);
         return $this->api->makeRequest('GET', $url, array());
     }
     
-    function createChannelInvite(string $channelid, array $options = array()) {
+    function createChannelInvite(int $channelid, array $options = array()) {
         $url = \CharlotteDunois\Yasmin\HTTP\APIEndpoints::format(self::ENDPOINTS['invites']['create'], $channelid);
         return $this->api->makeRequest('GET', $url, array('data' => $options));
     }
     
-    function triggerChannelTyping(string $channelid) {
+    function triggerChannelTyping(int $channelid) {
         $url = \CharlotteDunois\Yasmin\HTTP\APIEndpoints::format(self::ENDPOINTS['typing'], $channelid);
         return $this->api->makeRequest('POST', $url, array());
     }
     
-    function getPinnedChannelMessages(string $channelid) {
+    function getPinnedChannelMessages(int $channelid) {
         $url = \CharlotteDunois\Yasmin\HTTP\APIEndpoints::format(self::ENDPOINTS['pins']['list'], $channelid);
         return $this->api->makeRequest('GET', $url, array());
     }
     
-    function pinChannelMessage(string $channelid, string $messageid) {
+    function pinChannelMessage(int $channelid, int $messageid) {
         $url = \CharlotteDunois\Yasmin\HTTP\APIEndpoints::format(self::ENDPOINTS['pins']['add'], $channelid, $messageid);
         return $this->api->makeRequest('PUT', $url, array());
     }
     
-    function unpinChannelMessage(string $channelid, string $messageid) {
+    function unpinChannelMessage(int $channelid, int $messageid) {
         $url = \CharlotteDunois\Yasmin\HTTP\APIEndpoints::format(self::ENDPOINTS['pins']['delete'], $channelid, $messageid);
         return $this->api->makeRequest('DELETE', $url, array());
     }
     
-    function groupDMAddRecipient(string $channelid, string $userid, string $accessToken, string $nick) {
+    function groupDMAddRecipient(int $channelid, int $userid, string $accessToken, string $nick) {
         $url = \CharlotteDunois\Yasmin\HTTP\APIEndpoints::format(self::ENDPOINTS['groupDM']['add'], $channelid, $userid);
         return $this->api->makeRequest('PUT', $url, array('data' => array('access_token' => $accessToken, 'nick' => $nick)));
     }
     
-    function groupDMRemoveRecipient(string $channelid, string $userid) {
+    function groupDMRemoveRecipient(int $channelid, int $userid) {
         $url = \CharlotteDunois\Yasmin\HTTP\APIEndpoints::format(self::ENDPOINTS['groupDM']['remove'], $channelid, $userid);
         return $this->api->makeRequest('DELETE', $url, array());
     }

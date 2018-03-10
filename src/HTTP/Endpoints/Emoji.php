@@ -19,11 +19,11 @@ final class Emoji {
      * @var array
      */
     const ENDPOINTS = array(
-        'list' => 'guilds/%s/emojis',
-        'get' => 'guilds/%s/emojis/%s',
-        'create' => 'guilds/%s/emojis',
-        'modify' => 'guilds/%s/emojis/%s',
-        'delete' => 'guilds/%s/emojis/%s'
+        'list' => 'guilds/%d/emojis',
+        'get' => 'guilds/%d/emojis/%s',
+        'create' => 'guilds/%d/emojis',
+        'modify' => 'guilds/%d/emojis/%s',
+        'delete' => 'guilds/%d/emojis/%s'
     );
     
     /**
@@ -38,27 +38,27 @@ final class Emoji {
         $this->api = $api;
     }
     
-    function listGuildEmojis(string $guildid) {
+    function listGuildEmojis(int $guildid) {
         $url = \CharlotteDunois\Yasmin\HTTP\APIEndpoints::format(self::ENDPOINTS['list'], $guildid);
         return $this->api->makeRequest('GET', $url, array());
     }
     
-    function getGuildEmoji(string $guildid, string $emojiid) {
+    function getGuildEmoji(int $guildid, string $emojiid) {
         $url = \CharlotteDunois\Yasmin\HTTP\APIEndpoints::format(self::ENDPOINTS['get'], $guildid, $emojiid);
         return $this->api->makeRequest('GET', $url, array());
     }
     
-    function createGuildEmoji(string $guildid, array $options, string $reason = '') {
+    function createGuildEmoji(int $guildid, array $options, string $reason = '') {
         $url = \CharlotteDunois\Yasmin\HTTP\APIEndpoints::format(self::ENDPOINTS['create'], $guildid);
         return $this->api->makeRequest('POST', $url, array('auditLogReason' => $reason, 'data' => $options));
     }
     
-    function modifyGuildEmoji(string $guildid, string $emojiid, array $options, string $reason = '') {
+    function modifyGuildEmoji(int $guildid, string $emojiid, array $options, string $reason = '') {
         $url = \CharlotteDunois\Yasmin\HTTP\APIEndpoints::format(self::ENDPOINTS['modify'], $guildid, $emojiid);
         return $this->api->makeRequest('PATCH', $url, array('auditLogReason' => $reason, 'data' => $options));
     }
     
-    function deleteGuildEmoji(string $guildid, string $emojiid, string $reason = '') {
+    function deleteGuildEmoji(int $guildid, string $emojiid, string $reason = '') {
         $url = \CharlotteDunois\Yasmin\HTTP\APIEndpoints::format(self::ENDPOINTS['delete'], $guildid, $emojiid);
         return $this->api->makeRequest('DELETE', $url, array('auditLogReason' => $reason));
     }

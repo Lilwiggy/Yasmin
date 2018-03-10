@@ -19,12 +19,12 @@ final class User {
      * @var array
      */
     const ENDPOINTS = array(
-        'get' => 'users/%s',
+        'get' => 'users/%d',
         'current' => array(
             'get' => 'users/@me',
             'modify' => 'users/@me',
             'guilds' => 'users/@me/guilds',
-            'leaveGuild' => 'users/@me/guilds/%s',
+            'leaveGuild' => 'users/@me/guilds/%d',
             'dms' => 'users/@me/channels',
             'createDM' => 'users/@me/channels',
             'createGroupDM' => 'users/@me/channels',
@@ -49,7 +49,7 @@ final class User {
         return $this->api->makeRequest('GET', $url, array());
     }
     
-    function getUser(string $userid) {
+    function getUser(int $userid) {
         $url = \CharlotteDunois\Yasmin\HTTP\APIEndpoints::format(self::ENDPOINTS['get'], $userid);
         return $this->api->makeRequest('GET', $url, array());
     }
@@ -64,7 +64,7 @@ final class User {
         return $this->api->makeRequest('GET', $url, array());
     }
     
-    function leaveUserGuild(string $guildid) {
+    function leaveUserGuild(int $guildid) {
         $url = \CharlotteDunois\Yasmin\HTTP\APIEndpoints::format(self::ENDPOINTS['current']['leaveGuild'], $guildid);
         return $this->api->makeRequest('DELETE', $url, array());
     }
@@ -74,7 +74,7 @@ final class User {
         return $this->api->makeRequest('GET', $url, array());
     }
     
-    function createUserDM(string $recipientid) {
+    function createUserDM(int $recipientid) {
         $url = \CharlotteDunois\Yasmin\HTTP\APIEndpoints::format(self::ENDPOINTS['current']['createDM']);
         return $this->api->makeRequest('POST', $url, array('data' => array('recipient_id' => $recipientid)));
     }
