@@ -363,7 +363,7 @@ class GuildMember extends ClientBase {
         }
         
         $roles = \array_filter($this->roles->all(), function ($role) use ($roles) {
-            return (!\in_array($role, $roles, true) && !\in_array(((string) $role->id), $roles, true));
+            return (!\in_array($role, $roles, true) && !\in_array(((int) $role->id), $roles, true));
         });
         
         return $this->edit(array('roles' => $roles), $reason);
