@@ -353,8 +353,8 @@ class GuildMember extends ClientBase {
     
     /**
      * Removes roles from the guild member. Resolves with $this.
-     * @param \CharlotteDunois\Yasmin\Utils\Collection|array<\CharlotteDunois\Yasmin\Models\Role>   $roles    A collection or array of role instances (or role IDs).
-     * @param string                                                                                $reason
+     * @param \CharlotteDunois\Yasmin\Utils\Collection|array   $roles    A collection or array of role instances (or role IDs).
+     * @param string                                           $reason
      * @return \React\Promise\ExtendedPromiseInterface
      */
     function removeRoles($roles, string $reason = '') {
