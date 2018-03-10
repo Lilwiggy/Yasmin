@@ -258,11 +258,11 @@ class ClientUser extends User {
      *
      * <pre>
      * array(
-     *   'accessToken' => \CharlotteDunois\Yasmin\Models\User|string (user ID)
+     *   accessToken => \CharlotteDunois\Yasmin\Models\User|int (int = user ID)
      * )
      * </pre>
      *
-     * The nicks array is an associative array of userID => nick. The nick defaults to the username.
+     * The nicks array is an associative array of <code>userID => nick</code>. The nick defaults to the username.
      *
      * @param array  $userWithAccessTokens
      * @param array  $nicks

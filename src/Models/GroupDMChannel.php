@@ -30,7 +30,7 @@ class GroupDMChannel extends DMChannel {
     
     /**
      * Adds the given user to the Group DM channel using the given access token. Resolves with $this.
-     * @param string|\CharlotteDunois\Yasmin\Models\User  $user         The User instance, or the user ID.
+     * @param \CharlotteDunois\Yasmin\Models\User|int     $user         The User instance, or the user ID.
      * @param string                                      $accessToken  The OAuth 2.0 access token for the user.
      * @param string                                      $nick         The nickname of the user being added.
      * @return \React\Promise\ExtendedPromiseInterface
@@ -64,7 +64,7 @@ class GroupDMChannel extends DMChannel {
     
     /**
      * Removes the given user from the Group DM channel. Resolves with $this.
-     * @param string|\CharlotteDunois\Yasmin\Models\User  $user  The User instance, or the user ID.
+     * @param \CharlotteDunois\Yasmin\Models\User|int  $user  The User instance, or the user ID.
      * @return \React\Promise\ExtendedPromiseInterface
      * @throws \InvalidArgumentException
      */

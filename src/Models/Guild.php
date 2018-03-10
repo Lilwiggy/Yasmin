@@ -223,9 +223,9 @@ class Guild extends ClientBase {
      * )
      * </pre>
      *
-     * @param \CharlotteDunois\Yasmin\Models\User|string  $user         A guild member or User instance, or the user ID.
-     * @param string                                      $accessToken  The OAuth Access Token for the given user.
-     * @param array                                       $options      Any options.
+     * @param \CharlotteDunois\Yasmin\Models\User|int   $user         A guild member or User instance, or the user ID.
+     * @param string                                    $accessToken  The OAuth Access Token for the given user.
+     * @param array                                     $options      Any options.
      * @return \React\Promise\ExtendedPromiseInterface
      */
     function addMember($user, string $accessToken, array $options = array()) {
@@ -272,9 +272,9 @@ class Guild extends ClientBase {
     
     /**
      * Bans the given user. Resolves with $this.
-     * @param \CharlotteDunois\Yasmin\Models\GuildMember|\CharlotteDunois\Yasmin\Models\User|string  $user     A guild member or User instance, or the user ID.
-     * @param int                                                                                    $days     Number of days of messages to delete (0-7).
-     * @param string                                                                                 $reason
+     * @param \CharlotteDunois\Yasmin\Models\GuildMember|\CharlotteDunois\Yasmin\Models\User|int  $user     A guild member or User instance, or the user ID.
+     * @param int                                                                                 $days     Number of days of messages to delete (0-7).
+     * @param string                                                                              $reason
      * @return \React\Promise\ExtendedPromiseInterface
      */
     function ban($user, int $days = 0, string $reason = '') {
@@ -301,12 +301,12 @@ class Guild extends ClientBase {
      *   'bitrate' => int, (only for voice channels)
      *   'userLimit' => int, (only for voice channels, 0 = unlimited)
      *   'permissionOverwrites' => \CharlotteDunois\Yasmin\Utils\Collection|array, (an array or Collection of PermissionOverwrite instances or permission overwrite arrays*)
-     *   'parent' => \CharlotteDunois\Yasmin\Models\CategoryChannel|string, (string = channel ID)
+     *   'parent' => \CharlotteDunois\Yasmin\Models\CategoryChannel|int, (int = channel ID)
      *   'nsfw' => bool (only for text channels)
      * )
      *
      *   *  array(
-     *   *      'id' => string, (an user/member or role ID)
+     *   *      'id' => int, (an user/member or role ID)
      *   *      'type' => 'member'|'role',
      *   *      'allow' => \CharlotteDunois\Yasmin\Models\Permissions|int,
      *   *      'deny' => \CharlotteDunois\Yasmin\Models\Permissions|int
@@ -547,10 +547,10 @@ class Guild extends ClientBase {
      *
      * <pre>
      * array(
-     *   'before' => string|\CharlotteDunois\Yasmin\Models\AuditLogEntry, (string = Audit Log Entry ID)
-     *   'after' => string|\CharlotteDunois\Yasmin\Models\AuditLogEntry, (string = Audit Log Entry ID)
+     *   'before' => \CharlotteDunois\Yasmin\Models\AuditLogEntry|int, (int = Audit Log Entry ID)
+     *   'after' => \CharlotteDunois\Yasmin\Models\AuditLogEntry|int, (int = Audit Log Entry ID)
      *   'limit' => int,
-     *   'user' => string|\CharlotteDunois\Yasmin\Models\User,
+     *   'user' => \CharlotteDunois\Yasmin\Models\User|int, (int = User ID)
      *   'type' => string|int
      * )
      * </pre>
@@ -833,7 +833,7 @@ class Guild extends ClientBase {
     }
     
     /**
-     * Batch-updates the guild's roles positions. Roles is an array of <code>role ID (string)|Role => position (int)</code> pairs. Resolves with $this.
+     * Batch-updates the guild's roles positions. Roles is an array of <code>role ID (int)|Role => position (int)</code> pairs. Resolves with $this.
      * @param array   $roles
      * @param string  $reason
      * @return \React\Promise\ExtendedPromiseInterface
@@ -938,8 +938,8 @@ class Guild extends ClientBase {
     
     /**
      * Unbans the given user. Resolves with $this.
-     * @param \CharlotteDunois\Yasmin\Models\User|string  $user     An User instance or the user ID.
-     * @param string                                      $reason
+     * @param \CharlotteDunois\Yasmin\Models\User|int  $user     An User instance or the user ID.
+     * @param string                                   $reason
      * @return \React\Promise\ExtendedPromiseInterface
      */
     function unban($user, string $reason = '') {

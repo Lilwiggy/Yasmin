@@ -55,9 +55,9 @@ class MessageReaction extends ClientBase {
     
     /**
      * Fetches all the users that gave this reaction. Resolves with a Collection of User instances, mapped by their IDs.
-     * @param int     $limit   The maximum amount of users to fetch, defaults to 100.
-     * @param string  $before  Limit fetching users to those with an ID smaller than the given ID.
-     * @param string  $after   Limit fetching users to those with an ID greater than the given ID.
+     * @param int  $limit   The maximum amount of users to fetch, defaults to 100.
+     * @param int  $before  Limit fetching users to those with an ID smaller than the given ID.
+     * @param int  $after   Limit fetching users to those with an ID greater than the given ID.
      * @return \React\Promise\ExtendedPromiseInterface
      * @see \CharlotteDunois\Yasmin\Models\User
      */
@@ -96,7 +96,7 @@ class MessageReaction extends ClientBase {
         }
         
         return (new \React\Promise\Promise(function (callable $resolve, callable $reject) use ($user) {
-            $this->client->apimanager()->endpoints->channel->deleteMessageUserReaction($this->message->channel->id, $this->message->id, ($this->emoji->id ?? \rawurlencode($this->emoji->name)), ($user !== null ? $user->id : '@me'))->done(function () use ($resolve) {
+            $this->client->apimanager()->endpoints->channel->deleteMessageReaction($this->message->channel->id, $this->message->id, ($this->emoji->id ?? \rawurlencode($this->emoji->name)), ($user !== null ? ((string) $user->id) : '@me'))->done(function () use ($resolve) {
                 $resolve($this);
             }, $reject);
         }));

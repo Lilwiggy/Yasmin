@@ -204,8 +204,8 @@ class GuildMember extends ClientBase {
     
     /**
      * Adds a role to the guild member. Resolves with $this.
-     * @param \CharlotteDunois\Yasmin\Models\Role|string   $role    A role instance or role ID.
-     * @param string                                       $reason
+     * @param \CharlotteDunois\Yasmin\Models\Role|int   $role    A role instance or role ID.
+     * @param string                                    $reason
      * @return \React\Promise\ExtendedPromiseInterface
      */
     function addRole($role, string $reason = '') {
@@ -335,8 +335,8 @@ class GuildMember extends ClientBase {
     
     /**
      * Removes a role from the guild member. Resolves with $this.
-     * @param \CharlotteDunois\Yasmin\Models\Role|string   $role    A role instance or role ID.
-     * @param string                                       $reason
+     * @param \CharlotteDunois\Yasmin\Models\Role|int   $role    A role instance or role ID.
+     * @param string                                    $reason
      * @return \React\Promise\ExtendedPromiseInterface
      */
     function removeRole($role, string $reason = '') {

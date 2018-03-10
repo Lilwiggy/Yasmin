@@ -119,11 +119,11 @@ trait TextChannelTrait {
     
     /**
      * Fetches a specific message using the ID. Resolves with an instance of Message.
-     * @param string  $id
+     * @param int  $id
      * @return \React\Promise\ExtendedPromiseInterface
      * @see \CharlotteDunois\Yasmin\Models\Message
      */
-    function fetchMessage(string $id) {
+    function fetchMessage(int $id) {
         return (new \React\Promise\Promise(function (callable $resolve, callable $reject) use ($id) {
             $this->client->apimanager()->endpoints->channel->getChannelMessage($this->id, $id)->done(function ($data) use ($resolve) {
                 $message = $this->_createMessage($data);
@@ -139,9 +139,9 @@ trait TextChannelTrait {
      *
      * <pre>
      * array(
-     *   'after' => string, (message ID)
-     *   'around' => string, (message ID)
-     *   'before' => string, (message ID)
+     *   'after' => int, (message ID)
+     *   'around' => int, (message ID)
+     *   'before' => int, (message ID)
      *   'limit' => int, (1-100, defaults to 50)
      * )
      * </pre>

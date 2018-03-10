@@ -33,11 +33,11 @@ interface TextChannelInterface {
     
     /**
      * Fetches a specific message using the ID. Resolves with an instance of Message.
-     * @param string  $id
+     * @param int  $id
      * @return \React\Promise\ExtendedPromiseInterface
      * @see \CharlotteDunois\Yasmin\Models\Message
      */
-    function fetchMessage(string $id);
+    function fetchMessage(int $id);
     
     /**
      * Fetches messages of this channel. Resolves with a Collection of Message instances, mapped by their ID.

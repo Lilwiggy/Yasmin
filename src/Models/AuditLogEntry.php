@@ -15,7 +15,7 @@ namespace CharlotteDunois\Yasmin\Models;
  * @property \CharlotteDunois\Yasmin\Models\AuditLog       $log               The guild audit log which this entry belongs to.
  * @property int                                           $id                The ID of the audit log.
  * @property array[]                                       $changes           Specific property changes.
- * @property string                                        $userID            The ID of the user which triggered the audit log.
+ * @property int                                           $userID            The ID of the user which triggered the audit log.
  * @property string                                        $actionType        Specific action type of this entry in its string presentation.
  * @property string|null                                   $reason            The specified reason, or null.
  * @property int                                           $createdTimestamp  When this audit log entry was created.
@@ -100,7 +100,7 @@ class AuditLogEntry extends ClientBase {
         
         $this->id = (int) $entry['id'];
         $this->changes = $entry['changes'] ?? array();
-        $this->userID = $entry['user_id'];
+        $this->userID = (int) $entry['user_id'];
         $this->actionType = (\array_search($entry['action_type'], self::ACTION_TYPES, true) ?: '');
         $this->reason = $entry['reason'] ?? null;
         

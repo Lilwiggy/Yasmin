@@ -441,7 +441,7 @@ class Client implements \CharlotteDunois\Events\EventEmitterInterface {
      *     ** )
      *
      *     *** array( // overwrite array, all required
-     *     ***   'id' => \CharlotteDunois\Yasmin\Models\User|string, (string = user ID or role name (of above role array!))
+     *     ***   'id' => \CharlotteDunois\Yasmin\Models\User|int, (int = user ID or role name (of above role array!))
      *     ***   'allow' => \CharlotteDunois\Yasmin\Models\Permissions|int,
      *     ***   'deny' => \CharlotteDunois\Yasmin\Models\Permissions|int
      *     *** )
