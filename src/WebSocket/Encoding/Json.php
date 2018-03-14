@@ -70,7 +70,7 @@ class Json implements \CharlotteDunois\Yasmin\Interfaces\WSEncodingInterface {
     }
     
     /**
-     * Converts all IDs from integer to strings.
+     * Converts all IDs from strings to integers.
      * @param array|object
      * @return array|object
      */

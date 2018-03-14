@@ -18,7 +18,7 @@ namespace CharlotteDunois\Yasmin\Models;
  * @property int                                                            $createdTimestamp             The timestamp when this guild was created.
  * @property string|null                                                    $icon                         The guild icon hash, or null.
  * @property string|null                                                    $splash                       The guild splash hash, or null.
- * @property string                                                         $ownerID                      The ID of the owner.
+ * @property int                                                            $ownerID                      The ID of the owner.
  * @property bool                                                           $large                        Whether the guild is considered large.
  * @property int                                                            $memberCount                  How many members the guild has.
  * @property \CharlotteDunois\Yasmin\Models\ChannelStorage                  $channels                     Holds a guild's channels, mapped by their ID.
