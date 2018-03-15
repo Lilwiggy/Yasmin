@@ -1,4 +1,3 @@
-// Neko is nice and this lib is fun please use and support - Lilwiggy
 <?php
 /**
  * Yasmin
@@ -7,7 +6,7 @@
  * Website: https://charuru.moe
  * License: https://github.com/CharlotteDunois/Yasmin/blob/master/LICENSE
 */
-
+// Neko is nice and this lib is fun please use and support - Lilwiggy
 namespace CharlotteDunois\Yasmin;
 
 /**
