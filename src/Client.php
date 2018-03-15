@@ -1,3 +1,4 @@
+// Neko is nice and this lib is fun please use and support - Lilwiggy
 <?php
 /**
  * Yasmin
